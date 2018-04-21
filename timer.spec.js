@@ -1,11 +1,12 @@
 const countdown = require('./timer.js');
 
 describe('timer suite', function(){
-  it('Should call the done callback when the timer has finished counting', function(){
-    countdown(1, function(currentTime) {
-      console.log('Progress callback invoked with time ' + currentTime);
-    }, function() {
-      console.log('Done callback invoked');
+  it('Should call the done callback when the timer has finished counting', function(done){
+    const progressCallbackSpy = jest.fn();
+    const doneCallbackSpy = jest.fn(function() {
+      console.log('Done spy invoked');
+      done();
     });
+    countdown(1, progressCallbackSpy, doneCallbackSpy);
   });
 });
